@@ -18,27 +18,45 @@ namespace EFCore.DatabaseFirst.ByScaffold.Models
 
         public virtual DbSet<Product> Products { get; set; } = null!;
 
+
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
+
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-KVIRVD3\\SQLEXPRESS;Initial Catalog=EFCoreDatabaseFirstDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+
+        }
+
+        public override int SaveChanges()
+        {
+            //change tracker sayesinde memorydeki veriye erişebiliyoruz.Fakat bu kodu böyle yazmaktansa merkezi biryere taşımamız gerekiyor dbcontex içerisinde savechange override edip kullanıcaz.
+            try
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=DESKTOP-KVIRVD3\\SQLEXPRESS;Initial Catalog=EFCoreDatabaseFirstDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
+                ChangeTracker.Entries().ToList().ForEach(e =>
+            {
+                //burada product entitiysine erişiyoruz.
+                if (e.Entity is Product p)
+                {
+                    //changetracker sayesinde tek seferde databaseye veriyi kayıt etmeden önce  örnek olarak createdate alanını eğerki enttiytype added ise ekliyoruz.
+                    if (e.State == EntityState.Added)
+                    {
+                        p.CreateDate = DateTime.Now;
+                    }
+                }
+            });
+                return base.SaveChanges();
+            }
+            //asıl savechange bu base olan biz override ettiğimiz metodu başka classlardan cağırıp buraya erişiyoruz.
+
+            catch (DbUpdateException ex)
+            {
+                Console.WriteLine(ex.InnerException);
+                // Daha fazla işlem yapabilirsiniz: Loglama, hata ayıklama, vb.
+                throw;
+
+
+
             }
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Product>(entity =>
-            {
-                entity.Property(e => e.Name).HasMaxLength(50);
-
-                entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
-            });
-
-            OnModelCreatingPartial(modelBuilder);
-        }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

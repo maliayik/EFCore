@@ -2,22 +2,20 @@
 using EFCore.DatabaseFirst.ByScaffold.Models;
 using Microsoft.EntityFrameworkCore;
 
-Console.WriteLine("Hello, World!");
 
 
 using (var context = new EFCoreDatabaseFirstDbContext())
-{
-    var product = await context.Products.ToListAsync();
+{ 
+     
 
-    product.ForEach(p =>
-    {
-        Console.WriteLine($"Ürünler: {p.Id} : {p.Name}");
-    });
+    context.Products.Add(new() { Name = "Kalem 1", Price = 200, });
+    context.Products.Add(new() { Name = "Kalem 2", Price = 300, });
+    context.Products.Add(new() { Name = "Kalem 3", Price = 400, });
 
+    //ContextId Birden çok instance (kullanıcılarla) uygulamay giriş yapıldıgında bunları loglamamıza yarayan bir random uniq bir değer ataması yapar.
+    Console.WriteLine($"Context ID : {context.ContextId}");
 
-
-    //Aşağıda package manager consol içerisinde yazmıs oldugmuz scaffold komutu var bu komut dbfirst yaklaşımı için context sınıfımızı otomatik olarak olusturmamıza yarar.
-
-    // Scaffold - DbContext "Data Source=DESKTOP-KVIRVD3\SQLEXPRESS;Initial Catalog=EFCoreDatabaseFirstDb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False" Microsoft.EntityFrameworkCore.SqlServer - OutputDir Models
-    //
+    //Buradaki savechange içerisinden dbye kayıt etmeden önce yaptıgımız işlemlere erişebiliriz.
+    context.SaveChanges();
+ 
 }
