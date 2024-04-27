@@ -9,8 +9,10 @@ namespace EFCore.Relationships.DAL
 {
     public class ProductFeature
     {       
-        public int Id { get; set; }      
+        public int Id { get; set; }
+        public int Width { get; set; }
+        public string Color { get; set; }
         public int ProductId { get; set; }
-        public Product  Product { get; set; } //buradaki navigation propertyleri kaldırırsak productfeature üzerinden hiç bir şekilde product ekleme işlemi yapamayız. böyle bir senaryoya ihtiyacımız olursa kullanılabilir.
+        public virtual Product  Product { get; set; } //buradaki navigation propertyleri kaldırırsak productfeature üzerinden hiç bir şekilde product ekleme işlemi yapamayız. böyle bir senaryoya ihtiyacımız olursa kullanılabilir.
     }
 }
