@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfCore", "EfCore\EfCore.csproj", "{CDB86EEE-1187-4F86-8A6F-CBF6DB2B5628}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Concurrency.Web", "Concurrency.Web\Concurrency.Web.csproj", "{F4CD00AB-B57A-482D-8804-5517D98A91A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CDB86EEE-1187-4F86-8A6F-CBF6DB2B5628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CDB86EEE-1187-4F86-8A6F-CBF6DB2B5628}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CDB86EEE-1187-4F86-8A6F-CBF6DB2B5628}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CDB86EEE-1187-4F86-8A6F-CBF6DB2B5628}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4CD00AB-B57A-482D-8804-5517D98A91A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4CD00AB-B57A-482D-8804-5517D98A91A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4CD00AB-B57A-482D-8804-5517D98A91A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4CD00AB-B57A-482D-8804-5517D98A91A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
