@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,13 @@ namespace EFCore.Relationships.DAL
 {
     public class AppDbContext:DbContext
     {
+        private DbConnection connection;
+
+        public AppDbContext(DbConnection connection)
+        {
+            connection = connection;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-KVIRVD3\\SQLEXPRESS;Initial Catalog=EFCoreRelationshipDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
@@ -45,6 +53,8 @@ namespace EFCore.Relationships.DAL
 
             //one-to-one
             //modelBuilder.Entity<Product>().HasOne(x => x.ProductFeature).WithOne(x => x.Product).HasForeignKey<ProductFeature>(x => x.Id);
+
+            modelBuilder.Entity<ProductFeature>().HasMany(x=> x.Product).WithOne(x => x.ProductFeature)
 
             //many to many
             //modelBuilder.Entity<Student>()
