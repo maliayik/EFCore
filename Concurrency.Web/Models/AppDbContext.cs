@@ -8,6 +8,17 @@ namespace Concurrency.Web.Models
         {
             
         }
-        
+
+        public DbSet<Product> Products { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>().Property(x=> x.RowVersion).IsRowVersion();
+
+
+
+            base.OnModelCreating(modelBuilder);
+        }
+
     }
 }
